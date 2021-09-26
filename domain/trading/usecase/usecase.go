@@ -15,7 +15,7 @@ type Usecase struct {
 }
 
 // Calculate is ...
-func (u Usecase) Calculate(romanNumber *models.RomanNumberInterface, word string) {
+func (u Usecase) Calculate(romanNumber *models.RomanNumber, word string) {
 	s := strings.Split(word, " ")
 
 	totalVal := 0
@@ -23,20 +23,20 @@ func (u Usecase) Calculate(romanNumber *models.RomanNumberInterface, word string
 	for i, val := range s {
 		log.Println(i, val)
 		if val == "glob" {
-			tmp := romanNumber
+			tmp := romanNumber.Glob
 			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
 		}
 		if val == "prok" {
 			tmp := romanNumber.Prok
-			totalVal, prevVal = Logic(prevVal, tmp, totalVal)
+			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
 		}
 		if val == "pish" {
 			tmp := romanNumber.Pish
-			totalVal, prevVal = Logic(prevVal, tmp, totalVal)
+			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
 		}
 		if val == "tegj" {
 			tmp := romanNumber.Tegj
-			totalVal, prevVal = Logic(prevVal, tmp, totalVal)
+			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
 		}
 		if val == "Gold" {
 			totalVal = totalVal * u.GoldVal
