@@ -1,7 +1,5 @@
 package models
 
-import "log"
-
 // RomanNumber is ...
 type RomanNumber struct {
 	Glob int
@@ -43,6 +41,6 @@ func (r RomanNumber) Logic(prevVal int, totalVal int, word string) (int, int, bo
 	} else {
 		strangeWord = true
 	}
-	log.Println(totalVal)
+	//log.Println(totalVal)
 	return totalVal, prevVal, strangeWord
 }
