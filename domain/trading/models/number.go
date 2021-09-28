@@ -8,8 +8,12 @@ type RomanNumber struct {
 	Tegj int
 }
 
-// Logic is ...
-func (r RomanNumber) Logic(prevVal int, currentVal int, totalVal int) (int, int) {
+// RomanNumberInterface is ...
+type RomanNumberInterface interface {
+	Logic(prevVal int, currentVal int, totalVal string) (int, int)
+}
+
+func util(prevVal int, currentVal int, totalVal int) (int, int) {
 	if prevVal < currentVal && prevVal != 0 {
 		totalVal = totalVal - prevVal + (currentVal - prevVal)
 	} else {
@@ -19,7 +23,21 @@ func (r RomanNumber) Logic(prevVal int, currentVal int, totalVal int) (int, int)
 	return totalVal, prevVal
 }
 
-// RomanNumberInterface is ...
-type RomanNumberInterface interface {
-	Logic(prevVal int, currentVal int, totalVal int) (int, int)
+// Logic is ...
+func (r RomanNumber) Logic(prevVal int, totalVal int, word string) (int, int) {
+	if word == "glob" {
+		tmp := r.Glob
+		totalVal, prevVal = util(prevVal, tmp, totalVal)
+	} else if word == "prok" {
+		tmp := r.Prok
+		totalVal, prevVal = util(prevVal, tmp, totalVal)
+	} else if word == "pish" {
+		tmp := r.Pish
+		totalVal, prevVal = util(prevVal, tmp, totalVal)
+	} else if word == "tegj" {
+		tmp := r.Tegj
+		totalVal, prevVal = util(prevVal, tmp, totalVal)
+	}
+
+	return totalVal, prevVal
 }

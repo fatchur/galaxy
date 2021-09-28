@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"log"
 	"strings"
 
 	"github.com/fatchur/galaxy.git/domain/trading/models"
@@ -14,30 +13,20 @@ type Usecase struct {
 	IronVal   float32
 }
 
+// UsecaseInterface is ...
+type UsecaseInterface interface {
+	Calculate(romanNumber models.RomanNumberInterface, word string) int
+}
+
 // Calculate is ...
-func (u Usecase) Calculate(romanNumber *models.RomanNumber, word string) {
+func (u Usecase) Calculate(myNumber models.RomanNumberInterface, word string) int {
 	s := strings.Split(word, " ")
 
 	totalVal := 0
 	prevVal := 0
-	for i, val := range s {
-		log.Println(i, val)
-		if val == "glob" {
-			tmp := romanNumber.Glob
-			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
-		}
-		if val == "prok" {
-			tmp := romanNumber.Prok
-			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
-		}
-		if val == "pish" {
-			tmp := romanNumber.Pish
-			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
-		}
-		if val == "tegj" {
-			tmp := romanNumber.Tegj
-			totalVal, prevVal = romanNumber.Logic(prevVal, tmp, totalVal)
-		}
+	for _, val := range s {
+		totalVal, prevVal = myNumber.Logic(prevVal, totalVal, val)
+
 		if val == "Gold" {
 			totalVal = totalVal * u.GoldVal
 		}
@@ -45,9 +34,8 @@ func (u Usecase) Calculate(romanNumber *models.RomanNumber, word string) {
 			totalVal = totalVal * u.SilverVal
 		}
 		if val == "Iron" {
-			totalVal = totalVal * int(u.IronVal)
+			totalVal = int(float32(totalVal) * u.IronVal)
 		}
 	}
-
-	log.Println("==>", totalVal)
+	return totalVal
 }

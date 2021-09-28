@@ -3,15 +3,21 @@ package main
 import (
 	"log"
 
+	"github.com/fatchur/galaxy.git/domain/trading"
 	"github.com/fatchur/galaxy.git/domain/trading/models"
 	"github.com/fatchur/galaxy.git/domain/trading/usecase"
 )
 
 func main() {
+	theTrader := trading.Trader{
+		TraderID: 111,
+		Word:     "pish tegj glob glob",
+	}
+
 	price := usecase.Usecase{
 		SilverVal: 17,
 		GoldVal:   14450,
-		IronVal:   195.5,
+		IronVal:   196,
 	}
 
 	romanNum := models.RomanNumber{
@@ -21,6 +27,6 @@ func main() {
 		Tegj: 50,
 	}
 
-	price.Calculate(&romanNum, "glob prok Iron")
-	log.Println(price)
+	totalPrice := trading.DoTrading(theTrader, price, romanNum)
+	log.Println(totalPrice)
 }

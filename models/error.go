@@ -7,3 +7,4 @@ type Error struct {
 	Message   string
 	Status    string
 }
+
