@@ -43,4 +43,52 @@ We have to create a program to translate the galaxy language intu arabic number.
 The program written in `Golang`, the foldering structure is follow
 1. `app/`: main program
 2. `domain/`: contains the jobs related to the task. example: trading, bring money to earth etc. But in this case we just have one activity `trading`. <br>
+
 in trading package, we have `usecase` and `models`. <br>
+`usecase` is a package for all sub-activities related to intergalaxial trading. Based on the problem, there is just one sub activity supporting `trading`, **translating the galaxy language into arabic number**. The galaxy languange follows the rule of roman number.<br>
+
+**the translation method**
+```go 
+func (u Usecase) Calculate(myNumber models.RomanNumberInterface, word string) int {
+	s := strings.Split(word, " ")
+
+	totalVal := 0
+	prevVal := 0
+	for _, val := range s {
+		totalVal, prevVal = myNumber.Logic(prevVal, totalVal, val)
+
+		if val == "Gold" {
+			totalVal = totalVal * u.GoldVal
+		}
+		if val == "Silver" {
+			totalVal = totalVal * u.SilverVal
+		}
+		if val == "Iron" {
+			totalVal = int(float32(totalVal) * u.IronVal)
+		}
+	}
+	return totalVal
+}
+
+```
+
+The `models` package in `trading` is collection of some structs or constants used for supporting the `trading` actovity.  For example:
+```go
+type RomanNumber struct {
+	Glob int
+	Prok int
+	Pish int
+	Tegj int
+}
+```
+
+
+3. `models/` collection of common structs or constants supporting the main program, example error struct, jwt struct etc.
+
+Our code is mostly using interface as method input parameters. The reason is for flexibility to any changes. You can introduce new galaxy number without changing the methods. 
+
+```
+A great rule of thumb for Go is accept interfaces, return structs.
+
+–Jack Lindamood
+```
