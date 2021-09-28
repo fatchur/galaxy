@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"log"
 	"testing"
 
@@ -14,7 +15,7 @@ type mockForTest struct {
 }
 
 func TestCalculate(t *testing.T) {
-	log.Println("=================")
+	fmt.Println("=================")
 	myNumberMock := models.RomanNumber{
 		Glob: 1,
 		Prok: 5,
@@ -55,7 +56,7 @@ func TestCalculate(t *testing.T) {
 	}
 	tableTest = append(tableTest, myMock)
 
-	// case 3, glob prok Iron
+	// case 4, glob prok Iron
 	// expected result 782
 	myMock = mockForTest{
 		Input:    "glob prok Iron",
@@ -64,17 +65,15 @@ func TestCalculate(t *testing.T) {
 	}
 	tableTest = append(tableTest, myMock)
 
-	// case 3, wood could a woodchuck chuck if a woodchuck could chuck wood
+	// case 5, wood could a woodchuck chuck if a woodchuck could chuck wood
 	// expected result unknown
-	/*
-		myMock = mockForTest{
-			input:    "glob prok Iron",
-			output:   -1,
-			testName: "case5",
-		}
-		tableTest = append(tableTest, myMock)
-	*/
-	log.Println(tableTest)
+	myMock = mockForTest{
+		Input:    "wood could a woodchuck chuck if a woodchuck could chuck wood",
+		Output:   -1,
+		TestName: "case5",
+	}
+	tableTest = append(tableTest, myMock)
+
 	for idx, i := range tableTest {
 		log.Println(idx, i.TestName)
 		t.Run(i.TestName, func(t *testing.T) {
@@ -83,7 +82,7 @@ func TestCalculate(t *testing.T) {
 			if actual != i.Output {
 				t.Error("error output")
 			} else {
-				log.Println("->>", i.Output, actual)
+				t.Log("->>", i.Output, actual)
 			}
 		})
 	}

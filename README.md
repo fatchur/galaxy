@@ -85,10 +85,22 @@ type RomanNumber struct {
 
 3. `models/` collection of common structs or constants supporting the main program, example error struct, jwt struct etc.
 
-Our code is mostly using interface as method input parameters. The reason is for flexibility to any changes. You can introduce new galaxy number without changing the methods. 
+Our code is **mostly using interface as method input parameters**. The reason is for flexibility to any changes. You can introduce new galaxy number without changing the methods. 
 
 ```
 A great rule of thumb for Go is accept interfaces, return structs.
 
 –Jack Lindamood
 ```
+
+### Testing scenario 
+we have 2 unit test,
+1. `domain/trading/usecase/usecase_test.go` for checking the translation logic.
+the test case are: <br>
+
+| Input | expected result | 
+| --------------- | --------------- |
+| pish tegj glob glob | 42 | 
+| glob prok Silver | 68 | 
+| glob prok Gold | 57800 |
+| glob prok Iron | 782  |

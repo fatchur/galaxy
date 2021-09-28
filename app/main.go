@@ -11,7 +11,7 @@ import (
 func main() {
 	theTrader := trading.Trader{
 		TraderID: 111,
-		Word:     "pish tegj glob glob",
+		Word:     "glob prok Silver",
 	}
 
 	price := usecase.Usecase{
