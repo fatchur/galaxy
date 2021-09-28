@@ -95,8 +95,8 @@ A great rule of thumb for Go is accept interfaces, return structs.
 
 ### Testing scenario 
 we have 2 unit test,
-1. `domain/trading/usecase/usecase_test.go` for checking the translation logic.
-the test case are: <br>
+1. `domain/trading/usecase/usecase_test.go` <br> 
+for checking the translation logic. the test case are: <br>
 
 | Input | expected result | 
 | --------------- | --------------- |
@@ -104,3 +104,21 @@ the test case are: <br>
 | glob prok Silver | 68 | 
 | glob prok Gold | 57800 |
 | glob prok Iron | 782  |
+| wood could a woodchuck chuck if a woodchuck could chuck wood | -1 (unknown) | 
+
+
+2. `domain/trading/number/number_test.go` <br> 
+for checking the value of two sequence numbers.
+example: 
+```
+glob glob = 2
+but 
+glob pish = 9 NOT 11
+```
+
+| Input | expected result | 
+| --------------- | --------------- |
+| glob | 1 | 
+| glob pish | 9 | 
+| glob tegj | 49 |
+| pish pish | 20  |

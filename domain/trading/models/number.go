@@ -29,7 +29,7 @@ func (r RomanNumber) Logic(prevVal int, totalVal int, word string) (int, int, bo
 	if word == "glob" {
 		tmp := r.Glob
 		totalVal, prevVal = util(prevVal, tmp, totalVal)
-	} else if word == "prok" {
+	} else if word == "prok" || word == "Prok" {
 		tmp := r.Prok
 		totalVal, prevVal = util(prevVal, tmp, totalVal)
 	} else if word == "pish" {
