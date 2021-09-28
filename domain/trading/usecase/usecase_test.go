@@ -74,7 +74,7 @@ func TestCalculate(t *testing.T) {
 		}
 		tableTest = append(tableTest, myMock)
 	*/
-
+	log.Println(tableTest)
 	for idx, i := range tableTest {
 		log.Println(idx, i.TestName)
 		t.Run(i.TestName, func(t *testing.T) {
