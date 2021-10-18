@@ -18,11 +18,11 @@ type RomanNumberAlias struct {
 
 // Commodity is ...
 type Commodity struct {
-	Commodity map[string]string
+	Commodity map[string]float32
 }
 
 // Init is ...
-func (myRoman BasicRomanNumber) Init() BasicRomanNumber {
+func (myRoman *BasicRomanNumber) Init() {
 	myRoman.I = 1
 	myRoman.V = 5
 	myRoman.X = 10
@@ -30,5 +30,4 @@ func (myRoman BasicRomanNumber) Init() BasicRomanNumber {
 	myRoman.C = 100
 	myRoman.D = 500
 	myRoman.M = 1000
-	return myRoman
 }

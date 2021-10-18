@@ -1,9 +1,5 @@
 package usecase
 
-import (
-	"sort"
-)
-
 // WordType is ...
 type WordType struct {
 	NumberInit    bool
@@ -22,9 +18,9 @@ func RecogWord(mySlice []string) WordType {
 
 	if len(mySlice) == 3 {
 		myWordType.NumberInit = true
-	} else if int(sort.SearchStrings(mySlice, "Credits")) >= 1 {
+	} else if StringInSlice(mySlice, "Credits") {
 		myWordType.CommodityInit = true
-	} else if int(sort.SearchStrings(mySlice, "?")) >= 1 {
+	} else if StringInSlice(mySlice, "?") {
 		myWordType.Question = true
 	}
 

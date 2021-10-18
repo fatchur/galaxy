@@ -13,6 +13,7 @@ type RomanNumberInterface interface {
 	Logic(prevVal int, currentVal int, totalVal string) (int, int, bool)
 }
 
+/*
 func util(prevVal int, currentVal int, totalVal int) (int, int) {
 	if prevVal < currentVal && prevVal != 0 {
 		totalVal = totalVal - prevVal + (currentVal - prevVal)
@@ -44,3 +45,4 @@ func (r RomanNumber) Logic(prevVal int, totalVal int, word string) (int, int, bo
 	//log.Println(totalVal)
 	return totalVal, prevVal, strangeWord
 }
+*/

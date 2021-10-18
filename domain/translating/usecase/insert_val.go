@@ -2,12 +2,14 @@ package usecase
 
 import (
 	"log"
+	"reflect"
 	"strconv"
 
 	"github.com/fatchur/galaxy.git/domain/translating/models"
 )
 
-func stringInSlice(list []string, a string) bool {
+// StringInSlice is ...
+func StringInSlice(list []string, a string) bool {
 	for _, b := range list {
 		if b == a {
 			return true
@@ -26,39 +28,64 @@ func getItemIndex(list []string, a string) (int, bool) {
 			selectedIndex = i
 		}
 	}
-
 	return selectedIndex, getItem
+}
+
+func util(prevVal int, currentVal int, totalVal int) (int, int) {
+	if prevVal < currentVal && prevVal != 0 {
+		totalVal = totalVal - prevVal + (currentVal - prevVal)
+	} else {
+		totalVal += currentVal
+	}
+	prevVal = currentVal
+	return totalVal, prevVal
+}
+
+// CalculateRomanValue is ...
+func CalculateRomanValue(word []string, number *models.BasicRomanNumber, alias *models.RomanNumberAlias) int {
+	totalVal := 0
+	prevVal := 0
+	//strangeWord := false
+
+	for _, val := range word {
+		currentValInRoman := alias.Alias[val]
+		ref := reflect.ValueOf(number)
+		currentValInNum := reflect.Indirect(ref).FieldByName(currentValInRoman).Interface().(int)
+		totalVal, prevVal = util(prevVal, currentValInNum, totalVal)
+	}
+	return totalVal
 }
 
 // InsertNumVal is ...
 func InsertNumVal(word []string, alias *models.RomanNumberAlias) {
-	alias.Alias = make(map[string]string)
-
-	if stringInSlice(word, "I") {
-		alias.Alias["I"] = word[0]
-	} else if stringInSlice(word, "V") {
-		alias.Alias["V"] = word[0]
-	} else if stringInSlice(word, "X") {
-		alias.Alias["X"] = word[0]
-	} else if stringInSlice(word, "L") {
-		alias.Alias["L"] = word[0]
-	} else if stringInSlice(word, "C") {
-		alias.Alias["C"] = word[0]
-	} else if stringInSlice(word, "D") {
-		alias.Alias["D"] = word[0]
-	} else if stringInSlice(word, "M") {
-		alias.Alias["M"] = word[0]
+	if StringInSlice(word, "I") {
+		alias.Alias[word[0]] = "I"
+	} else if StringInSlice(word, "V") {
+		alias.Alias[word[0]] = "V"
+	} else if StringInSlice(word, "X") {
+		alias.Alias[word[0]] = "X"
+	} else if StringInSlice(word, "L") {
+		alias.Alias[word[0]] = "L"
+	} else if StringInSlice(word, "C") {
+		alias.Alias[word[0]] = "C"
+	} else if StringInSlice(word, "D") {
+		alias.Alias[word[0]] = "D"
+	} else if StringInSlice(word, "M") {
+		alias.Alias[word[0]] = "M"
 	}
 }
 
 // InsertCommodityVal is ...
-func InsertCommodityVal(word []string) {
+func InsertCommodityVal(word []string, alias *models.RomanNumberAlias,
+	myNum *models.BasicRomanNumber,
+	myCommodity *models.Commodity) {
 	indexOfIs, found := getItemIndex(word, "is")
 	if found {
 		commodityName := word[indexOfIs-1]
-		log.Println(commodityName)
+		log.Println(commodityName, word[:indexOfIs-1])
+		totalVal := CalculateRomanValue(word[:indexOfIs-1], myNum, alias)
 		price, _ := strconv.Atoi(word[indexOfIs+1])
-		//myCommodity.Commodity[commodityName] =
+		myCommodity.Commodity[commodityName] = float32(price) / float32(totalVal)
 
 	} else {
 		log.Println("unknown pattern")
