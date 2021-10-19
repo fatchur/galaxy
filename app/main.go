@@ -21,6 +21,8 @@ func main() {
 				glob prok Gold is 57800 Credits
 				pish pish Iron is 3910 Credits`
 	translating.Translate(inputText, &myRomanNum)
+
+	
 	/*
 		theTrader := trading.Trader{
 			TraderID: 111,
