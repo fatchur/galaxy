@@ -18,7 +18,7 @@ func RecogWord(mySlice []string) WordType {
 
 	if len(mySlice) == 3 {
 		myWordType.NumberInit = true
-	} else if StringInSlice(mySlice, "Credits") {
+	} else if StringInSlice(mySlice, "Credits") && !StringInSlice(mySlice, "?") {
 		myWordType.CommodityInit = true
 	} else if StringInSlice(mySlice, "?") {
 		myWordType.Question = true

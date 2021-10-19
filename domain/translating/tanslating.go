@@ -2,7 +2,6 @@ package translating
 
 import (
 	"bufio"
-	"log"
 	"strings"
 
 	"github.com/fatchur/galaxy.git/domain/translating/models"
@@ -10,11 +9,9 @@ import (
 )
 
 // Translate is ...
-func Translate(input string, myRomanNum *models.BasicRomanNumber) {
-	alias := models.RomanNumberAlias{}
-	alias.Alias = make(map[string]string)
-	commodity := models.Commodity{}
-	commodity.Commodity = make(map[string]float32)
+func Translate(input string, myRomanNum *models.BasicRomanNumber, alias *models.RomanNumberAlias, commodity *models.Commodity) [][]string {
+
+	var questionList [][]string
 
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
@@ -24,17 +21,12 @@ func Translate(input string, myRomanNum *models.BasicRomanNumber) {
 
 		wordType := usecase.RecogWord(splittedWord)
 		if wordType.NumberInit == true {
-			usecase.InsertNumVal(splittedWord, &alias)
+			usecase.InsertNumVal(splittedWord, alias)
 		} else if wordType.CommodityInit == true {
-			usecase.InsertCommodityVal(splittedWord, &alias, myRomanNum, &commodity)
+			usecase.InsertCommodityVal(splittedWord, alias, myRomanNum, commodity)
+		} else {
+			questionList = append(questionList, splittedWord)
 		}
-
-		log.Println("==> alias: ", alias)
-		log.Println("==> commodity: ", commodity)
-
 	}
-	/*
-		//log.Println(wordType)
-		log.Println(">>", splittedWord[0])
-		log.Println(wordType)*/
+	return questionList
 }

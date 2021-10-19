@@ -82,7 +82,7 @@ func TestCalculate(t *testing.T) {
 			if actual != i.Output {
 				t.Error("error output")
 			} else {
-				t.Log("->>", i.Output, actual)
+				t.Log("[PASS] ->>", i.Output, actual)
 			}
 		})
 	}

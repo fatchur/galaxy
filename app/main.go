@@ -11,7 +11,10 @@ func main() {
 	//translating.Translate("pish pish Iron is 3910 Credits")
 	myRomanNum := models.BasicRomanNumber{}
 	myRomanNum.Init()
-	log.Println(">> basic number: ", myRomanNum)
+	alias := models.RomanNumberAlias{}
+	alias.Alias = make(map[string]string)
+	commodity := models.Commodity{}
+	commodity.Commodity = make(map[string]float32)
 
 	inputText := `glob is I
 				prok is V
@@ -19,10 +22,18 @@ func main() {
 				tegj is L
 				glob glob Silver is 34 Credits
 				glob prok Gold is 57800 Credits
-				pish pish Iron is 3910 Credits`
-	translating.Translate(inputText, &myRomanNum)
+				pish pish Iron is 3910 Credits 
+				how much is pish tegj glob glob ?
+				how many Credits is glob prok Silver ?`
+	questionList := translating.Translate(inputText, &myRomanNum, &alias, &commodity)
+	log.Println("==> alias: ", alias)
+	log.Println("==> commodity: ", commodity)
+	log.Println("=> question: ", questionList)
 
-	
+	for _, i := range questionList {
+		log.Println(i[3:])
+	}
+
 	/*
 		theTrader := trading.Trader{
 			TraderID: 111,
